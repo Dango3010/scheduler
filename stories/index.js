@@ -17,6 +17,7 @@ storiesOf("Button", module)
   .add("Clickable", () => (
     <Button onClick={action("button-clicked")}>Clickable</Button>
   ))
+  //The "Clickable" story tests the behaviour of the button when an onClick prop is passed to <Button>.
   .add("Disabled", () => (
     <Button disabled onClick={action("button-clicked")}>
       Disabled

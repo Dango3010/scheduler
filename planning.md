@@ -71,6 +71,11 @@ Those are the steps that we used to build our <Button>, <DayListItem> and <DayLi
 
 ## InterviewerList  component 
   holds all the <InterviewerListItem> components together.
-  
+  receives three props:
+  1. interviewers:array - an array of all interviewers
+  2. setInterviewer:function - a function that accepts an interviewer id. This function will simply be passed down to the <InterviewerListItem>
+  3. interviewer:number - a number that represents the id of the currently selected interviewer
+
+
 
 

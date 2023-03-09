@@ -10,14 +10,19 @@ export default function InterviewerListItem (props){
       <img
         className="interviewers__item-image"
         src={props.avatar}
-        alt={props.selected && props.name}
+        alt=''
       />
-      {props.name}
+      {props.selected && props.name}
     </li>
   );
 }
 
 /* props:
+id={interviewer.id}
+name={interviewer.name}
+avatar={interviewer.avatar}
+setInterviewer={action("setInterviewer")}
+
 const interviewer = {
   id: 1,
   name: "Sylvia Palmer",

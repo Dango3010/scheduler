@@ -16,10 +16,6 @@ it needs the following props:
   This component shows us all of the data for a single weekday. 
   When the user clicks on a particular day, it displays a white background, indicating the user has selected that day.
 
-create DayListItem.js component file 
---> build out the DayListItem's states in ur story file: stories/index.js
---> build ur component and test it with storybook
-
 ## The DayList Component
 Our DayList component will take in three props:
 1. days:Array 
@@ -80,6 +76,9 @@ Those are the steps that we used to build our <Button>, <DayListItem> and <DayLi
   a user will be able to create, edit and delete an appointment within the appointment component.
   the component will display differently depending on what kind of task the user is completing. 
     each of these views (Empty, Show, Form, Confirm, Status and Error) will be child components of the <Appointment> component.
-
-
+    <Empty> = when the appointment component is empty 
+    <Show> = when it's booked
+    <Confirm> = when we want a user to confirm an action
+    <Status> = when it's loading
+    <Error> = when there is an error
 

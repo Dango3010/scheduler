@@ -8,6 +8,8 @@ import InterviewerListItem from '../src/components/InterviewerListItem';
 import Button from "components/Button";
 import InterviewerList from '../src/components/InterviewerList';
 import Appointment from "components/Appointment/index.js";
+import Header from "../src/components/Appointment/Header";
+import Empty from "../src/components/Appointment/Empty";
 
 import "index.scss";
 
@@ -149,4 +151,10 @@ storiesOf('Appointment', module)
     backgrounds: [{ name: "white", value: "#fff", default: true }]
   }) //addParameters can be passed an obj of parameters
   .add('Appointment', () => <Appointment />) //this story will render our <Appointment> component with no props.
-  .add('Appointment with time', () => <Appointment time='12pm'/>);
+  .add('Appointment with time', () => <Appointment time='12pm'/>)
+  .add("Header", () => <Header time='12pm' />)
+  .add('Empty', () => <Empty onAdd={action('onAdd')} />);
+
+
+
+

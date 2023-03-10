@@ -76,6 +76,10 @@ Those are the steps that we used to build our <Button>, <DayListItem> and <DayLi
   2. setInterviewer:function - a function that accepts an interviewer id. This function will simply be passed down to the <InterviewerListItem>
   3. interviewer:number - a number that represents the id of the currently selected interviewer
 
+## appointment component
+  a user will be able to create, edit and delete an appointment within the appointment component.
+  the component will display differently depending on what kind of task the user is completing. 
+    each of these views (Empty, Show, Form, Confirm, Status and Error) will be child components of the <Appointment> component.
 
 
 

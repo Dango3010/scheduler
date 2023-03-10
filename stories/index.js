@@ -7,6 +7,7 @@ import DayList from '../src/components/DayList';
 import InterviewerListItem from '../src/components/InterviewerListItem';
 import Button from "components/Button";
 import InterviewerList from '../src/components/InterviewerList';
+import Appointment from "components/Appointment/index.js";
 
 import "index.scss";
 
@@ -141,3 +142,11 @@ storiesOf("InterviewerList", module)
       onChange={action("setInterviewer")}
     />
   ));
+
+//stories for Appointment component
+storiesOf('Appointment', module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  }) //addParameters can be passed an obj of parameters
+  .add('Appointment', () => <Appointment />) //this story will render our <Appointment> component with no props.
+  .add('Appointment with time', () => <Appointment time='12pm'/>);

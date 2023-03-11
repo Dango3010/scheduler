@@ -33,7 +33,7 @@ export default function Show (props) {
 /* <show>, when hovered: revealing an edit and delete button.
 props:
   student="Lydia Miller-Jones" 
-  interviewer={interviewer}
+  interviewer={interviewer} //interviewer = interviewer obj
   onEdit={action('onEdit')}
   onDelete={action('onDelete')}
 

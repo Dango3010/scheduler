@@ -25,8 +25,8 @@ export default function InterviewerList (props) {
 
 /* props:
 interviewers={interviewers}
-interviewer={3}
-setInterviewer={action("setInterviewer")}
+value={3}
+onChange={action("setInterviewer")}
 
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },

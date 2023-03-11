@@ -30,4 +30,12 @@ export default function Show (props) {
   );
 }
 
-//<show>, when hovered: revealing an edit and delete button.
+/* <show>, when hovered: revealing an edit and delete button.
+props:
+  student="Lydia Miller-Jones" 
+  interviewer={interviewer}
+  onEdit={action('onEdit')}
+  onDelete={action('onDelete')}
+
+purpose: Show component allows a user to see an existing appointment
+*/

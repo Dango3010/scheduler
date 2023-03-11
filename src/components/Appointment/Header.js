@@ -8,3 +8,6 @@ export default function Header (props) {
     </header>
   ); 
 }
+
+//props: time='12pm'
+//Header component is used to display the time for the appointment

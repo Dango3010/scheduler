@@ -12,3 +12,5 @@ export default function Empty (props) {
     </main>
   );
 }
+// props: onAdd={action('onAdd')}
+//Empty component allows a user to choose which time slot to book

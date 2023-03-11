@@ -1,29 +1,46 @@
-import React from 'react';
+import React, {useState} from 'react';
 import InterviewerList from '../InterviewerList';
 import Button from '../Button';
 
 export default function Form (props) {
+  const [student, setStudent] = useState(props.student || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+
+  const handleChange = function(event) {
+    setStudent(event.target.value); //update student value
+  }
+  const reset = function() {
+    setStudent("");
+    setInterviewer(null);
+  };
+  const cancel = function() {
+    props.onCancel();
+    reset();
+  };
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off">
+        <form autoComplete="off" onSubmit={event => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={props.student} //user enters student name
+            value={student} //student value is updated, so is value in input element, causing re-render with the new value
+            onChange={handleChange} //called when the user enters student name
           />
         </form>
         <InterviewerList 
           interviewers={props.interviewers} //pass in the array of interviewers
-          value={props.interviewer} //selected interviewer
+          value={interviewer} //selected interviewer
+          onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={props.onCancel} >Cancel</Button>
-          <Button confirm onClick={props.onSave} >Save</Button>
+          <Button danger onClick={cancel} >Cancel</Button>
+          <Button confirm onClick={() => props.onSave(student, interviewer)} >Save</Button>
         </section>
       </section>
     </main>
@@ -73,4 +90,13 @@ The <Form> component should take the following props:
   interviewer:Number
   onSave:Function
   onCancel:Function
+*/
+
+/* TESTING
+use the React Development Tools to check that the state is being updated appropriately and the functions that we assigned are working.
+1. open the Chrome Development tools and choose the "React Components" panel.
+  Storybook is also itself built with React, and it is inside the Root component. 
+2. collapse the Root component that Storybook uses so we can easily see our <Form> component.
+3. when we type in a student's name and select an interviewer we can watch the values get updated in the inspector panel. 
+  we have two useState hooks, one starts as an empty string and the other one is the null interviewer value. We can track their changes in real time.
 */

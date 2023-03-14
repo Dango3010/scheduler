@@ -22,6 +22,20 @@ npm test
 npm run storybook
 ```
 
+## API server
+
+to run API server for testing, follow instructions in scheduler-api repository 
+to run the server normally, run: `npm start`, then locate the web on the browser
+to run the server so it returns an error when saving/deleting for testing the client's error handling capabilities: `npm run error`
+note: the client runs on port 8000, and the API server runs on port 8001.
+<!-- 
+The server provides endpoints for three resource types: days, appointments, and interviewers. 
+Below is a list of all routes available from the scheduler-api:
+  "GET_DAYS":         http://localhost:8001/api/days,
+  "GET_APPOINTMENTS": http://localhost:8001/api/appointments,
+  "GET_INTERVIEWERS": http://localhost:8001/api/interviewers,
+-->
+
 <!-- TESTING OUT THE TOOLS
 I. to try the live reloading feature of the Webpack development server.
 1. open the project directory in VS Code
@@ -90,9 +104,9 @@ TOTAL TOOL COMMANDS
 in package.json:
 "scripts": {
   "start": "react-scripts start",
+}
   "test": "react-scripts test",
   "storybook": "start-storybook -p 9009 -s public --ci"
-}
 A developer can run npm start, npm test or npm run storybook to start their preferred environment.
 
 -->

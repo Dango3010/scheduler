@@ -75,7 +75,7 @@ III. Jest
 The Jest environment allows us to test components without a browser. The default tests are very simple. They only confirm that each component can render without throwing an exception.
 
 Follow the steps below to try the automated testing capabilities of the Jest framework.
-1. Run the npm test command to run Jest
+1. Run the 'npm run test' command to start the Jest testing environment
 2. Press a to run all tests if prompted
 3. Confirm that the existing tests pass
 The two existing tests should both pass.
@@ -86,6 +86,8 @@ Watch Usage in Jest:
  › Press q to quit watch mode.
  › Press p to filter by a filename regex pattern.
  › Press t to filter by a test name regex pattern.
+ › Press w to show more options 
+ › Press o to only run tests for the files that have changed.
  › Press Enter to trigger a test run.
 
 When the test runner starts, it checks for changes to the files. If there are none, it will wait for changes before running the tests. We can press the a key to run all tests.

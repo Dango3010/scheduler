@@ -7,7 +7,7 @@ import DayList from './DayList';
 import Appointment from 'components/Appointment/index';
 
 //mock data to test features:
-const appointments = {
+/*const appointments = {
   "1": {
     id: 1,
     time: "12pm",
@@ -45,11 +45,19 @@ const appointments = {
     time: "4pm",
   }
 };
+*/
 
 export default function Application(props) {
-  const [day, setDay] = useState('Monday');
-  const [days, setDays] = useState([]);
-  const EachAppointment = Object.values(appointments).map(appointment => {
+  const [state, setState] = useState({
+    day: 'Monday',
+    days: [],
+    appointments: {}
+  });
+  const setDay = day => setState({ ...state, day });
+  const setDays = days => setState(prev => ({ ...prev, days }));
+  const dailyAppointments = [];
+
+  const EachAppointment = dailyAppointments.map(appointment => {
     return (
       <Appointment
         key={appointment.id}
@@ -75,8 +83,8 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days={days}
-            value={day} 
+            days={state.days}
+            value={state.day} 
             // day = 'Monday' by default
             onChange={setDay}
           />

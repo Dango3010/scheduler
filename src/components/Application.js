@@ -2,7 +2,7 @@ import React, {useState, Fragment, useEffect} from "react";
 import axios from 'axios';
 
 import "components/Application.scss";
-import {getAppointmentsForDay} from '../helpers/selectors';
+import {getAppointmentsForDay, getInterview} from '../helpers/selectors';
 
 import DayList from './DayList';
 import Appointment from 'components/Appointment/index';
@@ -11,16 +11,18 @@ export default function Application() {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
-      axios.get('/api/appointments')
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ]).then((res) => {
-      setState(prev => ({...prev, days: res[0].data, appointments: res[1].data }));
+      setState(prev => ({...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data }));
       //update data for days and appointments in our state at the same time.
     })
   });
@@ -29,10 +31,13 @@ export default function Application() {
   
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const EachAppointment = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview);
+
     return (
       <Appointment
         key={appointment.id}
         {...appointment}
+        interview={interview}
       />
     );
   });

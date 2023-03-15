@@ -7,3 +7,14 @@ export function getAppointmentsForDay(state, day) {
   return appointments; //an array of appointments objs for the day
 };
 
+export function getInterview(state, interview) {
+  let interviews = {};
+  if(interview) {
+    interviews.student = interview.student; 
+    interviews.interviewer = state.interviewers[interview.interviewer]
+  } else {
+    interviews = null;
+  }
+  return interviews; //an object of student and interviewers of an appointment
+};
+

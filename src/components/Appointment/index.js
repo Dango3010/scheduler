@@ -1,18 +1,31 @@
 import React from 'react';
+import {useVisualMode} from '../../hooks/useVisualMode';
 import '../Appointment/styles.scss';
 
 import Header from '../Appointment/Header';
 import Show from '../Appointment/Show';
 import Empty from '../Appointment/Empty';
+import Form from '../Appointment/Form';
+
+const EMPTY = 'EMTPY';
+const SHOW = 'SHOW';
+const CREATE = 'CREATE';
 
 export default function Appoinment (props) {
+  const {mode, transition, back} = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
   return (
     <article className="appointment">
       <Header time={props.time}/>
-      {props.interview ? 
-      <Show interviewer={props.interview.interviewer} student={props.interview.student}/> 
-      : 
-      <Empty />}
+      {mode === SHOW && (
+      <Show 
+        interviewer={props.interview.interviewer} 
+        student={props.interview.student}
+      /> 
+    )}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === CREATE && <Form interviewers={[]} onCancel={() => back(EMPTY)}/>}
     </article>
   );
 }

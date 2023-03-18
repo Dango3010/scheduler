@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-export function useVisualMode(initial) {
+export function useVisualMode(initial) { //our custom hooks
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]); //store the mode state history as an array so we can transition back
 

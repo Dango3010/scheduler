@@ -18,9 +18,9 @@ export default function Application() {
 
   useEffect(() => {
     Promise.all([
-      axios.get('/api/days'),
-      axios.get('/api/appointments'),
-      axios.get('/api/interviewers')
+      axios.get('api/days'),
+      axios.get('api/appointments'),
+      axios.get('api/interviewers')
     ]).then((res) => {
       setState(prev => ({...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data }));
       //update data for days and appointments in our state at the same time.

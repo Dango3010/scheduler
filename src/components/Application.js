@@ -2,7 +2,7 @@ import React, {useState, Fragment, useEffect} from "react";
 import axios from 'axios';
 
 import "components/Application.scss";
-import {getAppointmentsForDay, getInterview} from '../helpers/selectors';
+import {getAppointmentsForDay, getInterview, getInterviewersForDay} from '../helpers/selectors';
 
 import DayList from './DayList';
 import Appointment from 'components/Appointment/index';
@@ -29,7 +29,8 @@ export default function Application() {
   //to check if the state obj has changed: open the "React Components" tab in Dev Tools and select the Application component. Confirm that the state is set after the days and appointments requests are complete
   //This is one approach to solving our data dependency problem. No dependency or empty array needed
   
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyAppointments = getAppointmentsForDay(state, state.day); //[appointment.4,appointment.5]
+  const dailyinterviewers = getInterviewersForDay(state, state.day); //[interviewers.2]
   const EachAppointment = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
 
@@ -38,6 +39,7 @@ export default function Application() {
         key={appointment.id}
         {...appointment}
         interview={interview}
+        interviewers={dailyinterviewers}
       />
     );
   });

@@ -47,8 +47,8 @@ export default function Application() {
           appointments //it's the newly updated appointments obj
         })); //setState is only for the client side. w/t the back-end update, when we refresh the page, the newly added slot will disappear.
       })
-      .catch(error => console.log('error from bookInterview func:', error));
-    //here, the state is changed locally at Application-level
+      .catch(error => console.log('error from bookInterview func:', error))
+    //note: here, the state is changed locally at Application-level
   };
 
   const dailyAppointments = getAppointmentsForDay(state, state.day); //[{appointment},{appointment},..]

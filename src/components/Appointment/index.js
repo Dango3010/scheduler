@@ -22,8 +22,8 @@ export default function Appoinment (props) {
       interviewer
     };
     
-    props.bookInterview(props.id, interview);
-    // transition(SHOW);
+    const promise1 = Promise.resolve(props.bookInterview(props.id, interview));
+    promise1.then(transition(SHOW));
   };
 
   return (

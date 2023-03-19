@@ -44,10 +44,15 @@ export default function Application() {
     };
     console.log('updated appointments:', appointments[4]);
 
-    setState(prev => ({
-      ...prev,
-      appointments
-    }));
+    axios.put('api/appointments/${id}', {interview:interview})
+      .then(() => {
+        setState(prev => ({
+          ...prev,
+          appointments
+        }));
+      })
+      .catch(error => console.log('error from bookInterview func:', error));
+    
     console.log('state:', state.appointments[4]);
     return;
     //the state is changed locally at Application-level

@@ -21,23 +21,14 @@ export function getInterview(state, interview) {
 };
 
 export function getInterviewersForDay(state, day) {
-  let appoiArray = [];
   let InterIdArra = [];
-  let interviewers = [];
-  state.days.forEach(element => element.name === day ? appoiArray = element.appointments : []);
-    //appoiArray = the appointments array of that day = [4,5]
-  
-  appoiArray.forEach(id => {
-    const interview = state.appointments[id].interview;
-    if (interview && InterIdArra.indexOf(interview.interviewer) === -1) {
-      InterIdArra.push(state.appointments[id].interview.interviewer)
-    } else {
-      InterIdArra.push(null);
-    }
-  });
-    //InterIdArra = [null, 2]
-  InterIdArra.forEach(id => state.interviewers[id] ? interviewers.push(state.interviewers[id]) : true);
-    /*interviewers = [
+  let interviewerArr = [];
+  state.days.forEach(day1 => day1.name === day ? InterIdArra = day1.interviewers : []);
+    //InterIdArra = the interviewers array of that day = [2]
+  InterIdArra.forEach(id => state.interviewers[id] ? interviewerArr.push(state.interviewers[id]) : true);
+
+  return interviewerArr; //an array of interviewers objs for the day
+    /*interviewerArr = [
           {
             id: 2,
             name: 'Tori Malcolm',
@@ -45,5 +36,4 @@ export function getInterviewersForDay(state, day) {
           }
         ]
     */
-  return interviewers; //an array of interviewers objs for the day
 };

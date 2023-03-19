@@ -31,14 +31,27 @@ export default function Application() {
 
   function bookInterview(id, interview) { //appointment id and interview from onSave func in Form component
     console.log('from bookInterview:', id, interview);
-  };
-  function save(name, interviewer) { //student name and interviewer ID
-    const interview = {
-      student: name,
-      interviewer
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview } //interview key is updated with interview obj from a newly added appointment
     };
-    return interview;
-  }; //= the onSave func in Form component, create new interview object with these info, then pass the obj to props.bookInterview.
+    console.log('updated appointment', appointment);
+    
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    console.log('updated appointments:', appointments[4]);
+
+    setState(prev => ({
+      ...prev,
+      appointments
+    }));
+    console.log('state:', state.appointments[4]);
+    return;
+    //the state is changed locally at Application-level
+  };
 
   const dailyAppointments = getAppointmentsForDay(state, state.day); //[appointment.4,appointment.5]
   const dailyinterviewers = getInterviewersForDay(state, state.day); //[interviewers.2]
@@ -53,7 +66,6 @@ export default function Application() {
         interview={interview}
         interviewers={dailyinterviewers}
         bookInterview={bookInterview}
-        save={save}
       />
     );
   });

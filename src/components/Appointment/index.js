@@ -15,6 +15,7 @@ const CREATE = 'CREATE';
 const SAVING = 'SAVING';
 const DELETE = 'DELETE';
 const CONFIRM = 'CONFIRM';
+const EDIT = 'EDIT';
 
 export default function Appoinment (props) { //deal with one appointment at a time
   const {mode, transition, back} = useVisualMode(
@@ -50,15 +51,23 @@ export default function Appoinment (props) { //deal with one appointment at a ti
       <Header time={props.time}/>
       {(mode === SHOW && props.interview) && (
       <Show 
-        interviewer={props.interview?.interviewer} 
+        interviewer={props.interview?.interviewer} //if props.interview is true, render props.interview.interviewer!
         student={props.interview?.student}
         onDelete={() => transition(CONFIRM)}
+        onEdit={() => transition(EDIT)}
       /> 
       )}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CREATE && <Form 
         interviewers={props.interviewers} 
         onCancel={() => back(EMPTY)}
+        onSave={save}
+      />}
+      {mode === EDIT && <Form 
+        student={props.interview.student}
+        interviewer={props.interview.interviewer.id}
+        interviewers={props.interviewers} 
+        onCancel={() => back(SHOW)}
         onSave={save}
       />}
       {mode === CONFIRM && <

@@ -71,8 +71,6 @@ export default function Application() {
       .catch(err => console.log(err))
   }
 
-  console.log('update state:', state);
-
   const dailyAppointments = getAppointmentsForDay(state, state.day); //[{appointment},{appointment},..]
   const dailyinterviewers = getInterviewersForDay(state, state.day); //[{interviewer},{interviewer},..]
   

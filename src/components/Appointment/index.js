@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useVisualMode} from '../../hooks/useVisualMode';
 import '../Appointment/styles.scss';
 
@@ -11,20 +11,25 @@ const EMPTY = 'EMTPY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 
-export default function Appoinment (props) {
+export default function Appoinment (props) { //deal with one appointment at a time
   const {mode, transition, back} = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) { //student name and interviewer ID
+  function save(name, interviewer) { //added student name and interviewer ID
     const interview = {
       student: name,
       interviewer
     };
     
-    const promise1 = Promise.resolve(props.bookInterview(props.id, interview));
-    promise1.then(transition(SHOW));
+    return props.bookInterview(props.id, interview);
   };
+
+  useEffect(() => { //is only run when the dependecy has changed
+    if(props.interview && mode !== SHOW) { //mode !== SHOW is here so the useEffect won't run again with the appointments that are already shown
+      transition(SHOW);
+    }
+  }, [props.interview]); //only apply for appointments with null interviews, main purpose: to run transition(SHOW) after the props.bookInterview() is called
 
   return (
     <article className="appointment">

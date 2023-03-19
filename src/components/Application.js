@@ -25,41 +25,34 @@ export default function Application() {
       setState(prev => ({...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data }));
       //update data for days and appointments in our state at the same time.
     })
-  });
+  }, []);
   //to check if the state obj has changed: open the "React Components" tab in Dev Tools and select the Application component. Confirm that the state is set after the days and appointments requests are complete
   //This is one approach to solving our data dependency problem. No dependency or empty array needed
 
   function bookInterview(id, interview) { //appointment id and interview from onSave func in Form component
-    console.log('from bookInterview:', id, interview);
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview } //interview key is updated with interview obj from a newly added appointment
     };
-    console.log('updated appointment', appointment);
     
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    console.log('updated appointments:', appointments[4]);
 
-    axios.put('api/appointments/${id}', {interview:interview})
+    return axios.put(`api/appointments/${id}`, {interview}) //this is for the back-end, go to one appointment and update its interview {} with the {interview} that we sent
       .then(() => {
-        setState(prev => ({
+        setState( prev => ({
           ...prev,
-          appointments
-        }));
+          appointments //it's the newly updated appointments obj
+        })); //setState is only for the client side. w/t the back-end update, when we refresh the page, the newly added slot will disappear.
       })
       .catch(error => console.log('error from bookInterview func:', error));
-    
-    console.log('state:', state.appointments[4]);
-    return;
-    //the state is changed locally at Application-level
+    //here, the state is changed locally at Application-level
   };
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day); //[appointment.4,appointment.5]
-  const dailyinterviewers = getInterviewersForDay(state, state.day); //[interviewers.2]
+  const dailyAppointments = getAppointmentsForDay(state, state.day); //[{appointment},{appointment},..]
+  const dailyinterviewers = getInterviewersForDay(state, state.day); //[{interviewer},{interviewer},..]
   
   const EachAppointment = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview); //an object of student and interviewers of an appointment

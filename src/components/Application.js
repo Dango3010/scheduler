@@ -51,6 +51,28 @@ export default function Application() {
     //note: here, the state is changed locally at Application-level
   };
 
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`) //delete the whole appointment in the appointments obj
+      .then(() => {
+        setState({ //setState = refresh button, the whole browser will re-render everything again.
+          ...state, 
+          appointments
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  console.log('update state:', state);
+
   const dailyAppointments = getAppointmentsForDay(state, state.day); //[{appointment},{appointment},..]
   const dailyinterviewers = getInterviewersForDay(state, state.day); //[{interviewer},{interviewer},..]
   
@@ -64,6 +86,7 @@ export default function Application() {
         interview={interview}
         interviewers={dailyinterviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });

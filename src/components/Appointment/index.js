@@ -6,10 +6,15 @@ import Header from '../Appointment/Header';
 import Show from '../Appointment/Show';
 import Empty from '../Appointment/Empty';
 import Form from '../Appointment/Form';
+import Status from '../Appointment/Status';
+import Confirm from '../Appointment/Confirm';
 
 const EMPTY = 'EMTPY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
+const SAVING = 'SAVING';
+const DELETE = 'DELETE';
+const CONFIRM = 'CONFIRM';
 
 export default function Appoinment (props) { //deal with one appointment at a time
   const {mode, transition, back} = useVisualMode(
@@ -22,6 +27,7 @@ export default function Appoinment (props) { //deal with one appointment at a ti
       interviewer
     };
     
+    transition('SAVING');
     props.bookInterview(props.id, interview)
       .then(() => transition('SHOW')); //end the axios PUT request here (no semicolon in 'return' of bookInterview() func in Application.js)
   };
@@ -33,13 +39,20 @@ export default function Appoinment (props) { //deal with one appointment at a ti
   //   }
   // }, [props.interview]); //only apply for appointments with null interviews, main purpose: to run transition(SHOW) after the props.bookInterview() is called
 
+  function deleteFunc () {
+    transition(DELETE);
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY));
+  };
+
   return (
     <article className="appointment">
       <Header time={props.time}/>
-      {mode === SHOW && (
+      {(mode === SHOW && props.interview) && (
       <Show 
-        interviewer={props.interview.interviewer} 
-        student={props.interview.student}
+        interviewer={props.interview?.interviewer} 
+        student={props.interview?.student}
+        onDelete={() => transition(CONFIRM)}
       /> 
       )}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
@@ -48,6 +61,13 @@ export default function Appoinment (props) { //deal with one appointment at a ti
         onCancel={() => back(EMPTY)}
         onSave={save}
       />}
+      {mode === CONFIRM && <
+        Confirm message={'You are sure you wanna delete this? It is a bad idea'}
+        onCancel={() => transition(SHOW)}
+        onConfirm={deleteFunc}
+      />}
+      {mode === SAVING && <Status message={'Saving'}/>}
+      {mode === DELETE && <Status message={'Deleting'}/>}
     </article>
   );
 }

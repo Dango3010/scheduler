@@ -18,6 +18,11 @@ export default function Form (props) {
     reset();
   };
 
+  const handleChange2 = function(){
+    const interview = props.onSave(student, interviewer);
+    props.bookInterview(props.appointmentID, interview);
+  }
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -40,7 +45,7 @@ export default function Form (props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel} >Cancel</Button>
-          <Button confirm onClick={() => props.onSave(student, interviewer)} >Save</Button>
+          <Button confirm onClick={handleChange2} >Save</Button>
         </section>
       </section>
     </main>

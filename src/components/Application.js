@@ -28,11 +28,23 @@ export default function Application() {
   });
   //to check if the state obj has changed: open the "React Components" tab in Dev Tools and select the Application component. Confirm that the state is set after the days and appointments requests are complete
   //This is one approach to solving our data dependency problem. No dependency or empty array needed
-  
+
+  function bookInterview(id, interview) { //appointment id and interview from onSave func in Form component
+    console.log('from bookInterview:', id, interview);
+  };
+  function save(name, interviewer) { //student name and interviewer ID
+    const interview = {
+      student: name,
+      interviewer
+    };
+    return interview;
+  }; //= the onSave func in Form component, create new interview object with these info, then pass the obj to props.bookInterview.
+
   const dailyAppointments = getAppointmentsForDay(state, state.day); //[appointment.4,appointment.5]
   const dailyinterviewers = getInterviewersForDay(state, state.day); //[interviewers.2]
+  
   const EachAppointment = dailyAppointments.map(appointment => {
-    const interview = getInterview(state, appointment.interview);
+    const interview = getInterview(state, appointment.interview); //an object of student and interviewers of an appointment
 
     return (
       <Appointment
@@ -40,6 +52,8 @@ export default function Application() {
         {...appointment}
         interview={interview}
         interviewers={dailyinterviewers}
+        bookInterview={bookInterview}
+        save={save}
       />
     );
   });

@@ -18,9 +18,9 @@ export default function Application() {
 
   useEffect(() => {
     Promise.all([
-      axios.get('api/days'),
-      axios.get('api/appointments'),
-      axios.get('api/interviewers')
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ]).then((res) => {
       setState(prev => ({...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data }));
       //update data for days and appointments in our state at the same time.
@@ -47,7 +47,6 @@ export default function Application() {
           appointments //it's the newly updated appointments obj
         })); //setState is only for the client side. w/t the back-end update, when we refresh the page, the newly added slot will disappear.
       })
-      .catch(error => console.log('error from bookInterview func:', error))
     //note: here, the state is changed locally at Application-level
   };
 
@@ -68,7 +67,6 @@ export default function Application() {
           appointments
         })
       })
-      .catch(err => console.log(err))
   }
 
   const dailyAppointments = getAppointmentsForDay(state, state.day); //[{appointment},{appointment},..]

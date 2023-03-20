@@ -22,7 +22,7 @@ npm test
 npm run storybook
 ```
 
-## API server
+## Scheduler-api server
 
 to run API server for testing, follow instructions in scheduler-api repository 
 to run the server normally, run: `npm start`, then locate the web on the browser
@@ -34,6 +34,8 @@ Below is a list of all routes available from the scheduler-api:
   "GET_DAYS":         http://localhost:8001/api/days,
   "GET_APPOINTMENTS": http://localhost:8001/api/appointments,
   "GET_INTERVIEWERS": http://localhost:8001/api/interviewers,
+
+run `npm run error` to configure the API server with a TEST_ERROR environment variable.
 -->
 
 <!-- TESTING OUT THE TOOLS

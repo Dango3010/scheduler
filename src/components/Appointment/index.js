@@ -8,14 +8,17 @@ import Empty from '../Appointment/Empty';
 import Form from '../Appointment/Form';
 import Status from '../Appointment/Status';
 import Confirm from '../Appointment/Confirm';
+import Error from '../Appointment/Error';
 
 const EMPTY = 'EMTPY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
 const SAVING = 'SAVING';
-const DELETE = 'DELETE';
+const DELETING = 'DELETING';
 const CONFIRM = 'CONFIRM';
 const EDIT = 'EDIT';
+const ERROR_DELETE = 'ERROR_DELETE';
+const ERROR_SAVE = 'ERROR_SAVE';
 
 export default function Appoinment (props) { //deal with one appointment at a time
   const {mode, transition, back} = useVisualMode(
@@ -29,8 +32,17 @@ export default function Appoinment (props) { //deal with one appointment at a ti
     };
     
     transition('SAVING');
+      //note: when we create functions for SAVING and ERROR_SAVE in the same scope, they use the same transition function with the same history value in useVisualMode hook.
+      //after we click save, full history array of modes = ["EMPTY", "CREATE", "SAVING"].
     props.bookInterview(props.id, interview)
-      .then(() => transition('SHOW')); //end the axios PUT request here (no semicolon in 'return' of bookInterview() func in Application.js)
+      .then(() => transition('SHOW')) //end the axios PUT request here (no semicolon in 'return' of bookInterview() func in Application.js)
+      .catch(error => {
+        console.log('error from bookInterview func:', error);
+        transition(ERROR_SAVE, true);
+        //when the error is caught, we have ["EMPTY", "CREATE", "SAVING", "ERROR_SAVE"].
+        //When we transition to the ERROR_SAVE mode from the SAVING mode, we need to replace the SAVING mode by ERROR_SAVE in the history
+        //  thurs, we'll have: ["EMPTY", "CREATE", "ERROR_SAVE"].
+      });
   };
 
   //another way to run transition(SHOW) after the props.bookInterview() is called:
@@ -41,9 +53,17 @@ export default function Appoinment (props) { //deal with one appointment at a ti
   // }, [props.interview]); //only apply for appointments with null interviews, main purpose: to run transition(SHOW) after the props.bookInterview() is called
 
   function deleteFunc () {
-    transition(DELETE);
+    transition(DELETING, true);
     props.cancelInterview(props.id)
-      .then(() => transition(EMPTY));
+      .then(() => transition(EMPTY))
+      .catch(err => {
+        console.log('err from cancelInterview:', err);
+        transition(ERROR_DELETE, true);
+      });
+    /* full history array of modes = [SHOW, CONFIRM, DELETING, ERROR_DELETE]
+    to go back to SHOW when we click the error close button, we replace mode twice: DELETING replaces CONFIRM, then ERROR_DELETE replaces DELETING
+    so when we use back() from ERROR_DELETE, we're back to SHOW
+    */
   };
 
   return (
@@ -60,14 +80,14 @@ export default function Appoinment (props) { //deal with one appointment at a ti
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CREATE && <Form 
         interviewers={props.interviewers} 
-        onCancel={() => back(EMPTY)}
+        onCancel={() => back()}
         onSave={save}
       />}
       {mode === EDIT && <Form 
         student={props.interview.student}
         interviewer={props.interview.interviewer.id}
         interviewers={props.interviewers} 
-        onCancel={() => back(SHOW)}
+        onCancel={() => back()}
         onSave={save}
       />}
       {mode === CONFIRM && <
@@ -76,7 +96,12 @@ export default function Appoinment (props) { //deal with one appointment at a ti
         onConfirm={deleteFunc}
       />}
       {mode === SAVING && <Status message={'Saving'}/>}
-      {mode === DELETE && <Status message={'Deleting'}/>}
+      {mode === DELETING && <Status message={'Deleting'}/>}
+      {(mode === ERROR_DELETE || mode === ERROR_SAVE) && 
+        <Error 
+        message={'Oh! there is an error, probably caused by you!'}
+        onClose={() => back()}
+        />}
     </article>
   );
 }

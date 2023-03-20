@@ -71,8 +71,8 @@ export default function Appoinment (props) { //deal with one appointment at a ti
       <Header time={props.time}/>
       {(mode === SHOW && props.interview) && (
       <Show 
-        interviewer={props.interview?.interviewer} //if props.interview is true, render props.interview.interviewer!
-        student={props.interview?.student}
+        interviewer={props.interview.interviewer} //if props.interview is true, render props.interview.interviewer!
+        student={props.interview.student}
         onDelete={() => transition(CONFIRM)}
         onEdit={() => transition(EDIT)}
       /> 

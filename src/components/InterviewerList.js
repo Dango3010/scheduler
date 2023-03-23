@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import 'components/InterviewerList.scss';
 import InterviewerListItem from 'components/InterviewerListItem';
 
@@ -36,3 +37,8 @@ const interviewers = [
   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
 ];
 */
+
+//testing the props with Prop-types library:
+InterviewerList.propTypes = {
+  interviewers: PropTypes.array.isRequired,
+};

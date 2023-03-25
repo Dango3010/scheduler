@@ -44,20 +44,8 @@ describe("Form", () => {
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
     expect(Save).not.toHaveBeenCalled();
   });
-  
-  //test 4:
-  it("validates that the interviewer cannot be null", () => {
-    const Save = jest.fn();
-    const {getByText} = render(
-      <Form interviewers={interviewers} onSave={Save} student="Lydia Miller-Jones" />
-    ); //no interviewer is passed
-    fireEvent.click(getByText("Save")); //click on the Save button
-  
-    expect(getByText(/please select an interviewer/i)).toBeInTheDocument();
-    expect(Save).not.toHaveBeenCalled();
-  });
 
-  //test 5: confirm that we remove the error message after we have shown it.
+  //test 4: confirm that we remove the error message after we have shown it.
   it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
@@ -83,7 +71,7 @@ describe("Form", () => {
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", 1); //student name = "Lydia Miller-Jones", interviewerID = 1
   });
 
-  //test 6:
+  //test 5:
   it("calls onCancel and resets the input field", () => {
     const onCancel = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(

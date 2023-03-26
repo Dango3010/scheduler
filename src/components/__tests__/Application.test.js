@@ -2,7 +2,7 @@ import React from "react"; //  We are rendering `<Application />` down below, so
 
 import { 
   fireEvent, render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText,
-  getByPlaceholderText, queryByText
+  getByPlaceholderText, queryByText, wait, queryByAltText, getByTestId
 } from "@testing-library/react";
 
 import Application from "components/Application";
@@ -55,7 +55,29 @@ describe('Application component', () => {
       //day = <li> with the text 'Monday'
     expect(getByText(day, 'no spots remaining')).toBeInTheDocument();
 
-    console.log('day', prettyDOM(day));
+    // console.log('day', prettyDOM(day));
+  });
+
+  it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
+    const {debug, container} = render(<Application />); // render the Application.
+    await wait(() => getByText(container, "Archie Cohen")); // wait until the text "Archie Cohen" is displayed.
+    
+    //to delete an appointment:
+    const appointment = getAllByTestId(container, "appointment")[1];
+    fireEvent.click(queryByAltText(appointment, 'Delete')); //click the delete button
+    expect(getByText(appointment, "You are sure you wanna delete this? It is a bad idea")).toBeInTheDocument(); //mode has changed into CONFIRM
+    
+    fireEvent.click(getByText(appointment, 'Confirm')); //click the 'confirm' button
+    expect(getByText(appointment, 'Deleting')).toBeInTheDocument(); //mode has changed into DELETE
+    
+    await wait(() => getByAltText(appointment, 'Add')); //wait until the element with the "Add" button is displayed.
+    
+    const day = getAllByTestId(container, 'day').find(day => queryByText(day, 'Monday')); //get <li> with 'Monday' text
+      //getAllByTestId(container, 'day') = an array of <li> with 'Monday', 'Tuesday', etc.
+      //array.find(); = a method to find the <li> with 'Monday' text
+    expect(getByText(day, '2 spots remaining')).toBeInTheDocument(); // check that if the <li> also has the text "2 spots remaining".
+    
+    // console.log('day', prettyDOM(day));
   });
 });
 

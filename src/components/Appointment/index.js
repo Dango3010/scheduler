@@ -67,7 +67,7 @@ export default function Appoinment (props) { //deal with one appointment at a ti
   };
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
       {(mode === SHOW && props.interview) && (
       <Show 

@@ -1,4 +1,5 @@
 import React from "react"; //  We are rendering `<Application />` down below, so we need React.createElement
+import axios from "axios";
 
 import { 
   fireEvent, render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText,
@@ -22,6 +23,7 @@ describe('Application component', () => {
     expect(getByText("Leopold Silvers")).toBeInTheDocument(); //verify that the text "Leopold Silvers" is in the document. 
   });
 
+  //test 2
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
     const {container, debug} = render(<Application />);
     
@@ -58,6 +60,7 @@ describe('Application component', () => {
     // console.log('day', prettyDOM(day));
   });
 
+  //test 3
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
     const {debug, container} = render(<Application />); // render the Application.
     await wait(() => getByText(container, "Archie Cohen")); // wait until the text "Archie Cohen" is displayed.
@@ -80,6 +83,7 @@ describe('Application component', () => {
     // console.log('day', prettyDOM(day));
   });
 
+  //test 4
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
     const {container} = render(<Application />); // render the Application.
     await wait(() => getByText(container, "Archie Cohen")); // wait until the text "Archie Cohen" is displayed.
@@ -101,6 +105,53 @@ describe('Application component', () => {
     expect(getByText(day, '1 spot remaining')).toBeInTheDocument(); // check if the 'Monday' <li> still has the same text "1 spot remaining".
     
     // console.log('day', prettyDOM(day));
+  });
+
+  //test 5
+  it("shows the save error when failing to save an appointment", async () => {
+    await axios.put.mockRejectedValueOnce();
+    const {container} = render(<Application />);
+    
+    await waitForElement(() => getByText(container, "Archie Cohen")); //wait until the text "Archie Cohen" is displayed.
+    const appointment = getAllByTestId(container, "appointment")[0] //the first empty appointment
+
+    //to book an appointment:
+    fireEvent.click(getByAltText(appointment, 'Add')); //click the "Add" button on the first empty appointment.
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: {value: "Lydia Miller-Jones"}
+    }); //update the input element with the placeholder "Enter Student Name" by the name "Lydia Miller-Jones"
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));// in InterviewerListItem component, interviewer name = 'alt' text of the img element. here, we click on the interviewer image with the "Sylvia Palmer" name.
+    
+    fireEvent.click(getByText(appointment, 'Save')); //click on the save button
+    await wait(() => getByText(appointment, 'Error')); //wait for the mode to change into ERROR
+    expect(getByText(appointment, 'Error')).toBeInTheDocument(); //see if the mode has changed into ERROR
+
+    fireEvent.click(getByAltText(appointment, 'Close')); //click the "Close" button
+    await wait(() => getByText(appointment, 'Save')); //wait for the mode to change into FORM, look for the 'save' button
+    expect(getByText(appointment, 'Save')).toBeInTheDocument(); //see if the mode has changed back into FORM, look for the 'save' button
+    
+    // console.log('appointment',prettyDOM(appointment));
+  });
+
+  //test 6
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    await axios.delete.mockRejectedValueOnce();
+    const {container} = render(<Application />);
+    
+    await waitForElement(() => getByText(container, "Archie Cohen")); //wait until the text "Archie Cohen" is displayed.
+    const appointment = getAllByTestId(container, "appointment")[1]; //a booked appointment
+
+    fireEvent.click(getByAltText(appointment, 'Delete')); //click the "Delete" button on the first empty appointment.
+    await wait(() => getByText(appointment, 'You are sure you wanna delete this? It is a bad idea')); //wait for the mode to change into ERROR
+    fireEvent.click(getByText(appointment, 'Confirm')); //click the "Confirm" button
+    await wait(() => getByText(appointment, 'Error')); //wait for the mode to change into ERROR
+    expect(getByText(appointment, 'Error')).toBeInTheDocument(); //see if the mode has changed into ERROR
+
+    fireEvent.click(getByAltText(appointment, 'Close')); //click the "Close" button
+    await wait(() => getByAltText(appointment, 'Edit')); //wait for the mode to change into SHOW, look for the 'edit' button
+    expect(getByAltText(appointment, 'Edit')).toBeInTheDocument(); //see if the mode has changed into SHOW, look for the 'edit' button
+    
+    // console.log('appointment',prettyDOM(appointment));
   });
 });
 

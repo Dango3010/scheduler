@@ -30,7 +30,7 @@ When add new appointment:
 !['browser'](https://user-images.githubusercontent.com/114049732/228949039-2ec6180d-185b-476b-a74d-26da7e413c6c.png)
 
 ## Scheduler-api server
-link of the repo: https://github.com/lighthouse-labs/scheduler-api
+Link to the repo: https://github.com/lighthouse-labs/scheduler-api
 
 How it looks on the browser:
 !['api server'](https://user-images.githubusercontent.com/114049732/228948919-f908b869-9495-4f88-bab9-77b7ed25b056.png)
@@ -41,7 +41,7 @@ To run the server, run: `npm start`, then locate the web on the browser.
 
 To run the server so it returns an error when saving/deleting for testing the client's error handling capabilities: `npm run error`
 
-The client runs on port 8000, and the API server runs on port 8001. Running both for the app to work.
+The client runs on port 8000, and the API server runs on port 8001. Run both for the app to work.
 
 <!-- 
 The server provides endpoints for three resource types: days, appointments, and interviewers. 

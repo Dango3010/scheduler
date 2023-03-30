@@ -22,12 +22,22 @@ npm test
 npm run storybook
 ```
 
+## Screenshots
+!['browser'](https://user-images.githubusercontent.com/114049732/228948979-64355f17-8e89-46f2-bcf9-1f89a0987109.png)
+
+!['browser'](https://user-images.githubusercontent.com/114049732/228949039-2ec6180d-185b-476b-a74d-26da7e413c6c.png)
+
 ## Scheduler-api server
+link: https://github.com/lighthouse-labs/scheduler-api
+
+How it looks on the browser:
+!['api server'](https://user-images.githubusercontent.com/114049732/228948919-f908b869-9495-4f88-bab9-77b7ed25b056.png)
 
 to run API server for testing, follow instructions in scheduler-api repository 
-to run the server normally, run: `npm start`, then locate the web on the browser
+to run the server, run: `npm start`, then locate the web on the browser
 to run the server so it returns an error when saving/deleting for testing the client's error handling capabilities: `npm run error`
-note: the client runs on port 8000, and the API server runs on port 8001.
+
+The client runs on port 8000, and the API server runs on port 8001. Running both for the app to work.
 <!-- 
 The server provides endpoints for three resource types: days, appointments, and interviewers. 
 Below is a list of all routes available from the scheduler-api:

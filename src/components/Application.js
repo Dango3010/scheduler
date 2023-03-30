@@ -3,7 +3,7 @@ import React from "react";
 import "components/Application.scss";
 
 import {getAppointmentsForDay, getInterview, getInterviewersForDay} from '../helpers/selectors';
-import {useApplicationData} from '../hooks/useVisualMode';
+import {useApplicationData} from '../hooks/useApplicationData';
 
 import DayList from './DayList';
 import Appointment from 'components/Appointment/index';

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useVisualMode} from '../../hooks/useVisualMode';
 import '../Appointment/styles.scss';
 

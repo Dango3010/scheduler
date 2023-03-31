@@ -16,21 +16,14 @@ export function useApplicationData() { //is used in Application component
       axios.get('/api/appointments'),
       axios.get('/api/interviewers')
     ]).then((res) => {
-      setState(prev => ({...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data}));
-      //update data for days and appointments in our state at the same time.
+      setState(prev => ({...prev, days: res[0].data, appointments: res[1].data, interviewers: res[2].data})); //update data for days and appointments in our state at the same time.
     })
-  }, []);
-  //to check if the state obj has changed: open the "React Components" tab in Dev Tools and select the Application component. Confirm that the state is set after the days and appointments requests are complete
-  //This is one approach to solving our data dependency problem. No dependency or empty array needed
+  }, []); //to check if the state obj has changed: open the "React Components" tab in Dev Tools and select the Application component. Confirm that the state is set after the days and appointments requests are complete.
 
-  // console.log('state apoint for each day', state.days.forEach(day => day.name === state.day ? console.log(day.appointments) : true));
-
-  //updating remaining spots func
-  function updateSpots (appoints){ //updated appointments
+  function updateSpots (appoints){ //updating remaining spots func; appoints = updated appointments
     let spots = 0;
     let Dayappoints = [];
-    state.days.forEach(day => day.name === state.day ? Dayappoints = day.appointments : true);
-    //Dayappoints = [1,2,3,4,5]
+    state.days.forEach(day => day.name === state.day ? Dayappoints = day.appointments : true); //Dayappoints = [1,2,3,4,5]
     Dayappoints.forEach(id => appoints[id].interview ? true : spots++); //the # of remaining spots = # of appointments with null interview
     return spots;
   };
@@ -51,17 +44,14 @@ export function useApplicationData() { //is used in Application component
     return axios.put(`api/appointments/${id}`, {interview}) //this is for the back-end, go to one appointment and update its interview {} with the {interview} that we sent
       .then(() => {
         state.days.forEach(day => day.name === state.day ? day.spots = remainSpots : true);
-        setState( prev => ({ //setState = re-render the whole page
+        setState( prev => ({ 
           ...prev,
-          appointments //it's the newly updated appointments obj
+          appointments 
         })) //setState is only for the client side. w/t the back-end update, when we refresh the page, the newly added slot will disappear.
       })
-  
-    //note: here, the state is changed locally at Application-level
   };
 
-  //cancelInterview func makes an HTTP request and updates the local state.
-  function cancelInterview(id) {
+  function cancelInterview(id) { //cancelInterview func makes an HTTP request and updates the local state.
     const appointment = {
       ...state.appointments[id],
       interview: null

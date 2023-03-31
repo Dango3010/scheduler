@@ -32,26 +32,14 @@ export default function Appoinment (props) { //deal with one appointment at a ti
     };
     
     transition('SAVING');
-      //note: when we create functions for SAVING and ERROR_SAVE in the same scope, they use the same transition function with the same history value in useVisualMode hook.
-      //after we click save, full history array of modes = ["EMPTY", "CREATE", "SAVING"].
     props.bookInterview(props.id, interview)
       .then(() => transition('SHOW')) //end the axios PUT request here (no semicolon in 'return' of bookInterview() func in Application.js)
       .catch(error => {
         console.log('error from bookInterview func:', error);
         transition(ERROR_SAVE, true);
-        //when the error is caught, we have ["EMPTY", "CREATE", "SAVING", "ERROR_SAVE"].
-        //When we transition to the ERROR_SAVE mode from the SAVING mode, we need to replace the SAVING mode by ERROR_SAVE in the history
-        //  thurs, we'll have: ["EMPTY", "CREATE", "ERROR_SAVE"].
       });
   };
-
-  //another way to run transition(SHOW) after the props.bookInterview() is called:
-  // useEffect(() => { //is only run when the dependecy has changed
-  //   if(props.interview && mode !== SHOW) { //mode !== SHOW is here so the useEffect won't run again with the appointments that are already shown
-  //     transition(SHOW);
-  //   }
-  // }, [props.interview]); //only apply for appointments with null interviews, main purpose: to run transition(SHOW) after the props.bookInterview() is called
-
+  
   function deleteFunc () {
     transition(DELETING, true);
     props.cancelInterview(props.id)
@@ -60,10 +48,6 @@ export default function Appoinment (props) { //deal with one appointment at a ti
         console.log('err from cancelInterview:', err);
         transition(ERROR_DELETE, true);
       });
-    /* full history array of modes = [SHOW, CONFIRM, DELETING, ERROR_DELETE]
-    to go back to SHOW when we click the error close button, we replace mode twice: DELETING replaces CONFIRM, then ERROR_DELETE replaces DELETING
-    so when we use back() from ERROR_DELETE, we're back to SHOW
-    */
   };
 
   return (
@@ -132,4 +116,21 @@ Set display to none for any elements that:
   have an ancestor with a class of appointment AND
   that ancestor is the last element with a class of appointment inside its parent container (i.e. last of that type).
 
+save func, note: when we create functions for SAVING and ERROR_SAVE in the same scope, they use the same transition function with the same history value in useVisualMode hook.
+  after we click save, full history array of modes = ["EMPTY", "CREATE", "SAVING"].
+  when the error is caught, we have ["EMPTY", "CREATE", "SAVING", "ERROR_SAVE"].
+  When we transition to the ERROR_SAVE mode from the SAVING mode, we need to replace the SAVING mode by ERROR_SAVE in the history
+  thurs, we'll have: ["EMPTY", "CREATE", "ERROR_SAVE"].
+
+another way to run transition(SHOW) after the props.bookInterview() is called:
+useEffect(() => { //is only run when the dependecy has changed
+  if(props.interview && mode !== SHOW) { //mode !== SHOW is here so the useEffect won't run again with the appointments that are already shown
+    transition(SHOW);
+  }
+}, [props.interview]); //only apply for appointments with null interviews, main purpose: to run transition(SHOW) after the props.bookInterview() is called
+
+deleteFunc, note:
+  full history array of modes = [SHOW, CONFIRM, DELETING, ERROR_DELETE]
+    to go back to SHOW when we click the error close button, we replace mode twice: DELETING replaces CONFIRM, then ERROR_DELETE replaces DELETING
+    so when we use back() from ERROR_DELETE, we're back to SHOW
 */

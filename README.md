@@ -26,7 +26,7 @@ npm run storybook
 Homepage:
 !['browser'](https://user-images.githubusercontent.com/114049732/228948979-64355f17-8e89-46f2-bcf9-1f89a0987109.png)
 
-When add new appointment:
+When adding a new appointment:
 !['browser'](https://user-images.githubusercontent.com/114049732/228949039-2ec6180d-185b-476b-a74d-26da7e413c6c.png)
 
 ## Scheduler-api server

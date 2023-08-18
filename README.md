@@ -46,4 +46,5 @@ Homepage:
 !['browser'](https://user-images.githubusercontent.com/114049732/228948979-64355f17-8e89-46f2-bcf9-1f89a0987109.png)
 
 How users can manage their appointments:
-https://github.com/Dango3010/scheduler/assets/114049732/3c55e2a2-9675-4f2c-bca3-8132d41ca1ee
+https://github.com/Dango3010/scheduler/assets/114049732/f1d08373-ba87-4ef3-8532-31eaa8b0eb84
+

@@ -28,7 +28,7 @@ npm run storybook
 ```
 
 ## Scheduler-api server
-Link to the repo: https://github.com/lighthouse-labs/scheduler-api
+Link to the Scheduler-api repo: https://github.com/lighthouse-labs/scheduler-api
 
 How it looks on the browser:
 !['api server'](https://user-images.githubusercontent.com/114049732/228948919-f908b869-9495-4f88-bab9-77b7ed25b056.png)
@@ -45,6 +45,5 @@ The client runs on port 8000, and the API server runs on port 8001. Run both for
 Homepage:
 !['browser'](https://user-images.githubusercontent.com/114049732/228948979-64355f17-8e89-46f2-bcf9-1f89a0987109.png)
 
-How users can manage their appointments
-
-https://github.com/Dango3010/scheduler/assets/114049732/eb62b2d3-41f8-4a53-be18-bfe02b12b3a7
+How users can manage their appointments:
+https://github.com/Dango3010/scheduler/assets/114049732/3c55e2a2-9675-4f2c-bca3-8132d41ca1ee

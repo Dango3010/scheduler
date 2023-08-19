@@ -1,5 +1,7 @@
 # Interview Scheduler
-a React-based single-page application that allows users to book and manage appointments with interviewers.
+Interview Scheduler is a React-based single-page application that allows users to book and manage appointments with interviewers quickly and proficiently. 
+
+The application was developed following Test Driven Development (TDD) principle using unit and integration tests.
 
 ## Tech Stack 
 - React, HTML, SASS, JavaScript, PostgreSQL
@@ -44,6 +46,10 @@ The client runs on port 8000, and the API server runs on port 8001. Run both for
 ## Overview
 Homepage:
 !['browser'](https://user-images.githubusercontent.com/114049732/228948979-64355f17-8e89-46f2-bcf9-1f89a0987109.png)
+
+Testing with storybook:
+![Screen Shot 2023-08-18 at 7 24 47 PM](https://github.com/Dango3010/scheduler/assets/114049732/535830db-334f-4785-8f63-093dc1b4a1ae)
+
 
 How users can manage their appointments:
 

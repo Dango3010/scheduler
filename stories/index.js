@@ -116,10 +116,7 @@ storiesOf("InterviewerListItem", module)
     />
   ));
 
-/* stories for InterviewerList component
-We're going to include a "clickable" story, even though we tested the ability to click on an individual interviewer.
-  This should test that the setInterviewer prop is being passed properly.
-*/
+// stories for InterviewerList component
 const interviewers = [
   { id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
   { id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -154,8 +151,8 @@ storiesOf("InterviewerList", module)
 storiesOf('Appointment', module)
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]
-  }) //addParameters can be passed an obj of parameters
-  .add('Appointment', () => <Appointment />) //this story will render our <Appointment> component with no props.
+  }) 
+  .add('Appointment', () => <Appointment />) 
   .add('Appointment with time', () => <Appointment time='12pm'/>)
   .add("Header", () => <Header time='12pm' />)
   .add('Empty', () => <Empty onAdd={action('onAdd')} />)

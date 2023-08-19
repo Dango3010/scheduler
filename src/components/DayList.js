@@ -18,27 +18,3 @@ export default function DayList (props) {
     <ul>{NewArr}</ul>
   );
 }
-/* the below variable is passed to DayList as props
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
-
-note that the DayList component accepts 3 props:
-1. days = an array of days
-2. day = the name of the currently selected day
-3. setDay = a function that can be used to set the current day.
-*/

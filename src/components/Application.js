@@ -45,8 +45,8 @@ export default function Application() {
         <nav className="sidebar__menu">
           <DayList
             days={state.days}
-            value={state.day} //for re-render on browser
-            onChange={setDay} //to update 'day', which is 'Monday' by default
+            value={state.day} 
+            onChange={setDay} //to update day state, which is 'Monday' by default
           />
         </nav>
         <img
@@ -64,9 +64,4 @@ export default function Application() {
     </main>
   );
 }
-/* note on useState:
-When we call the setDay action, it changes the day state. 
-  When we change the state, the <Application> renders and passes the new day to the <DayList>. 
-  The <DayList> renders and passes props to the <DayListItem> children causing the updates to the selected visual state.
-  (clicking-and-choosing-a-day-on-the-day-list feature on the left handout of the app)
-*/
+

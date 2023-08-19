@@ -1,8 +1,9 @@
 import {useState} from "react";
 
-export function useVisualMode(initial) { //our custom hooks, is used in Appointment component to control mode state
+// This lets our tests (and components) access the current value of the mode from the hook.
+export function useVisualMode(initial) { 
   const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]); //store the mode state history as an array so we can transition back
+  const [history, setHistory] = useState([initial]); 
 
   const transition = (newMode, replace = false) => {
     setMode(newMode);
@@ -22,5 +23,5 @@ export function useVisualMode(initial) { //our custom hooks, is used in Appointm
 
   return {mode, transition, back};
 };
-// This lets our tests (and components) access the current value of the mode from the hook.
+
 

@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Error component is used to inform the user when an error occurs
 export default function Error (props) {
   return (
     <main className="appointment__card appointment__card--error">
@@ -17,8 +18,4 @@ export default function Error (props) {
   );
 }
 
-/* props:
-message="Could not delete appointment."
-onClose={action('onClose')} - the func called when the user clicks the Close button
-purpose: Error component is used to inform the user when an error occurs
-*/
+

@@ -18,20 +18,18 @@ describe("Form", () => {
   //test 1: access the input element in Form component of scheduler project 
   it("renders without student name if not provided", () => {
     const { getByPlaceholderText } = render(
-      <Form interviewers={interviewers} /> //pass the Form component fake interviewers props
+      <Form interviewers={interviewers} /> 
     );
     expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
   });
-  //getByPlaceholderText("Enter Student Name") = access the student-name input element by 'PlaceholderText' in the DOM.
 
   //test 2: make the Form render with a student name
   it("renders with initial student name", () => {
     const { getByTestId } = render(
-      <Form interviewers={interviewers} student="Lydia Miller-Jones" /> //we're also passing it a student-name prop.
+      <Form interviewers={interviewers} student="Lydia Miller-Jones" /> 
     );
     expect(getByTestId("student-name-input")).toHaveValue("Lydia Miller-Jones");
   });
-  //getByTestId("student-name-input") = access the student-name input element by 'data-testid' in the DOM.
 
   //test 3:
   it("validates that the student name is not blank", () => {
@@ -52,7 +50,7 @@ describe("Form", () => {
       <Form interviewers={interviewers} onSave={onSave} interviewer={1} />
     );
 
-    fireEvent.click(getByText("Save")); //click the save button => onsave is called when we have both interviewerID and student
+    fireEvent.click(getByText("Save")); 
 
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
@@ -60,9 +58,6 @@ describe("Form", () => {
     fireEvent.change(getByPlaceholderText("Enter Student Name"), {
       target: { value: "Lydia Miller-Jones" }
     });
-    //replace for the following:
-    // const input = getByPlaceholderText("Enter Student Name"); //access the input element that has placeholder="Enter Student Name"
-    //fireEvent.change(input, { target: { value: "Lydia Miller-Jones" } }); //enter user input of "Lydia Miller-Jones" and trigger the onChange func => student = "Lydia Miller-Jones"
 
     fireEvent.click(getByText("Save"));
 
@@ -83,20 +78,16 @@ describe("Form", () => {
       />
     );
   
-    fireEvent.click(getByText("Save")); //click the save button
+    fireEvent.click(getByText("Save")); 
   
     fireEvent.change(getByPlaceholderText("Enter Student Name"), {
       target: { value: "Lydia Miller-Jones" }
-    }); //input element updates with user-input student name
+    }); 
   
-    fireEvent.click(getByText("Cancel")); //click cancel button
+    fireEvent.click(getByText("Cancel")); 
   
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
-    expect(getByPlaceholderText("Enter Student Name")).toHaveValue(""); //the input element is reset
+    expect(getByPlaceholderText("Enter Student Name")).toHaveValue(""); 
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });
-/* What is the difference between getByText and queryByText?
-  When we use getByText, we should be confident that the element exists. If it does not exist, then it throws an error instead. 
-  We can test for the absence of something by using queryByText and checking that the value is null.
-*/

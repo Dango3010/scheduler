@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Show component allows a user to see an existing appointment
 export default function Show (props) {
   return(
     <main className="appointment__card appointment__card--show">
@@ -30,12 +31,3 @@ export default function Show (props) {
   );
 }
 
-/* <show>, when hovered: revealing an edit and delete button.
-props:
-  student="Lydia Miller-Jones" 
-  interviewer={interviewer} //interviewer = interviewer obj
-  onEdit={action('onEdit')}
-  onDelete={action('onDelete')}
-
-purpose: Show component allows a user to see an existing appointment
-*/

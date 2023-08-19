@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Empty component allows a user to choose which time slot to book
 export default function Empty (props) {
   return (
     <main className="appointment__add">
@@ -12,5 +13,3 @@ export default function Empty (props) {
     </main>
   );
 }
-// props: onAdd={action('onAdd')}
-//Empty component allows a user to choose which time slot to book

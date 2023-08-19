@@ -1,15 +1,6 @@
 @import "styles/mixins.scss";
 @import "styles/variables.scss";
 
-/* for DayListItem component, we'll add styles dynamically based on if the DayListItem is selected or not, 
-and whether the day is already booked full of appointments.
-
-The SCSS code below generates three CSS classes that we will use with the li element.
-.day-list__item { ... }
-.day-list__item--selected { ... }
-.day-list__item--full. { ... }
-*/
-
 .day-list {
   &__item {
     @include fade;

@@ -12,10 +12,3 @@ export default function Confirm (props){
     </main>
   );
 }
-/* props:
-message="Delete the appointment?"
-onConfirm={action('onConfirm')}
-onCancel={action('onCancel')}
-
-purpose: Confirm component allows a user to confirm a destructive action
-*/

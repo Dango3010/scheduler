@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Status component informs the user that an operation is in progress
 export default function Status (props) {
   return(
     <main className="appointment__card appointment__card--status">
@@ -13,5 +14,4 @@ export default function Status (props) {
   );
 }
 
-//props: message="Deleting"
-//purpose: Status component informs the user that an operation is in progress
+

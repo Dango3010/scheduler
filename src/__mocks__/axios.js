@@ -54,10 +54,15 @@ const fixtures = {
   }
 };
 
+//api request urls
+const dayURL = "http://localhost:8001/api/days";
+const appointmentURL = "http://localhost:8001/api/appointments";
+const interviewerURL = "http://localhost:8001/api/interviewers";
+
 //response to axios.get() func
 export default {
   get: jest.fn(url => {
-    if (url === "/api/days") {
+    if (url === dayURL) {
       return Promise.resolve({ //we return a resolved Promise to match the interface used by axios.
         status: 200,
         statusText: "OK",
@@ -65,7 +70,7 @@ export default {
       });
     }
     
-    if (url === "/api/appointments") {
+    if (url === appointmentURL) {
       return Promise.resolve({
         status: 200,
         statusText: 'OK',
@@ -73,7 +78,7 @@ export default {
       });
     }
 
-    if (url === "/api/interviewers") {
+    if (url === interviewerURL) {
       return Promise.resolve({
         status: 200,
         statusText: "OK",

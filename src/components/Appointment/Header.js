@@ -1,5 +1,6 @@
 import React from 'react';
 
+//Header component is used to display the time for the appointment
 export default function Header (props) {
   return (
     <header className="appointment__time">
@@ -9,5 +10,3 @@ export default function Header (props) {
   ); 
 }
 
-//props: time='12pm'
-//Header component is used to display the time for the appointment
